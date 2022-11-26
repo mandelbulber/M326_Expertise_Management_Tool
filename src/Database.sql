@@ -13,8 +13,8 @@ CREATE TABLE User(
     fk_roleId varchar(36) NOT NULL,
     email varchar(100) NOT NULL,
     password varchar(200) NOT NULL,
-    firstName varchar(50) NOT NULL,
-    lastName varchar(100) NOT NULL,
+    firstname varchar(50) NOT NULL,
+    lastname varchar(100) NOT NULL,
     Primary Key (userId)
 );
 
@@ -59,5 +59,49 @@ ALTER TABLE Resource
 
 -- Add test data
 INSERT INTO Role (name) VALUES
-("Test1"),
-("Test2");
+("TestRole1"),
+("TestRole2");
+
+INSERT INTO Status (name) VALUES
+("TestStatus1"),
+("TestStatus2");
+
+INSERT INTO User (fk_roleId, email, password, firstname, lastname) VALUES
+(
+    (SELECT roleId FROM Role WHERE name="TestRole1"),
+    "TestEmail1@test.com",
+    "TestPassword1",
+    "TestFirstname1",
+    "TestLastname1"
+),
+(
+    (SELECT roleId FROM Role WHERE name="TestRole2"),
+    "TestEmail2@test.com",
+    "TestPassword2",
+    "TestFirstname2",
+    "TestLastname2"
+);
+
+INSERT INTO Competence (fk_statusId, fk_userId, name, description) VALUES
+(
+    (SELECT statusId FROM Status WHERE name="TestStatus1"),
+    (SELECT userId FROM User WHERE email="TestEmail1@test.com"),
+    "TestCompetence1",
+    "TestDescription1"
+),
+(
+    (SELECT statusId FROM Status WHERE name="TestStatus2"),
+    (SELECT userId FROM User WHERE email="TestEmail2@test.com"),
+    "TestCompetence2",
+    "TestDescription2"
+);
+
+INSERT INTO Resource (fk_competenceId, url) VALUES
+(
+    (SELECT competenceId FROM Competence WHERE name="TestCompetence1"),
+    "TestUrl1"
+),
+(
+    (SELECT competenceId FROM Competence WHERE name="TestCompetence2"),
+    "TestUrl2"
+);
