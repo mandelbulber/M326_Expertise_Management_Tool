@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS EMT_Database;
-CREATE DATABASE IF NOT EXISTS EMT_Database;
-USE EMT_Database;
+DROP DATABASE IF EXISTS emt_database;
+CREATE DATABASE IF NOT EXISTS emt_database;
+USE emt_database;
 
 CREATE TABLE Role(
     roleId varchar(36) DEFAULT UUID() NOT NULL,
@@ -15,7 +15,8 @@ CREATE TABLE User(
     password varchar(200) NOT NULL,
     firstname varchar(50) NOT NULL,
     lastname varchar(100) NOT NULL,
-    Primary Key (userId)
+    Primary Key (userId),
+    UNIQUE(email)
 );
 
 CREATE TABLE Status(
@@ -70,14 +71,14 @@ INSERT INTO User (fk_roleId, email, password, firstname, lastname) VALUES
 (
     (SELECT roleId FROM Role WHERE name="TestRole1"),
     "TestEmail1@test.com",
-    "TestPassword1",
+    "$2a$10$npE.4Rdtn0wJ2i2iyrF8vegCjt9oLcO.XTjIb2w9jkKn2I475yUMO", -- TestPassword1
     "TestFirstname1",
     "TestLastname1"
 ),
 (
     (SELECT roleId FROM Role WHERE name="TestRole2"),
     "TestEmail2@test.com",
-    "TestPassword2",
+    "$2a$10$eTU1F/UA0Mgw0nUdaMKGj.Ncra.txIAKMqUam49K/epqE4ZiQBVTW", -- TestPassword2
     "TestFirstname2",
     "TestLastname2"
 );
