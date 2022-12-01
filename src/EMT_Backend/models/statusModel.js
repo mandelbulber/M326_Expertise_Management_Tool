@@ -17,7 +17,7 @@ export const getStatus = (result) => {
 //get single status 
 export const getStatusById = (id, result) => {
   db.query(
-    "SELECT * FROM Status WHERE userId = ?",
+    "SELECT * FROM Status WHERE statusId = ?",
     [id],
     (err, results) => {
       if (err) {
@@ -45,7 +45,7 @@ export const insertStatus = (data, result) => {
 // Update status to Database
 export const updateStatusById = (data, id, result) => {
   db.query(
-    "UPDATE User SET name = ? WHERE statusId = ?",
+    "UPDATE Status SET name = ? WHERE statusId = ?",
     [data.name, id],
     (err, results) => {
       if (err) {
@@ -60,7 +60,7 @@ export const updateStatusById = (data, id, result) => {
 
 // Delete status from Database
 export const deleteStatusById = (id, result) => {
-  db.query("DELETE FROM User WHERE userId = ?", [id], (err, results) => {
+  db.query("DELETE FROM Status WHERE statusId = ?", [id], (err, results) => {
     if (err) {
       console.log(err);
       result(err, null);
