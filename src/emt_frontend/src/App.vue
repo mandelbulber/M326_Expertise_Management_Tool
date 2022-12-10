@@ -3,7 +3,7 @@
     <nav>
       <div>
         <li>
-          <router-link to="/home"> Home </router-link>
+          <router-link to="/"> Home </router-link>
         </li>
         <li v-if="showAdminBoard">
           <router-link to="/admin">Admin Board</router-link>
@@ -18,28 +18,21 @@
 
       <div v-if="!currentUser">
         <li>
-          <router-link to="/register">
-            <font-awesome-icon icon="user-plus" /> Sign Up
-          </router-link>
+          <router-link to="/register">Sign Up </router-link>
         </li>
         <li>
-          <router-link to="/login">
-            <font-awesome-icon icon="sign-in-alt" /> Login
-          </router-link>
+          <router-link to="/login">Login </router-link>
         </li>
       </div>
 
       <div v-if="currentUser">
         <li>
           <router-link to="/profile">
-            <font-awesome-icon icon="user" />
-            {{ currentUser.username }}
+            {{ currentUser.email }}
           </router-link>
         </li>
         <li>
-          <a @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" /> LogOut
-          </a>
+          <a @click.prevent="logOut">LogOut </a>
         </li>
       </div>
     </nav>
