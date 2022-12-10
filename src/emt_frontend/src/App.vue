@@ -1,30 +1,81 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div id="app">
+    <nav>
+      <div>
+        <li>
+          <router-link to="/home"> Home </router-link>
+        </li>
+        <li v-if="showAdminBoard">
+          <router-link to="/admin">Admin Board</router-link>
+        </li>
+        <li v-if="showModeratorBoard">
+          <router-link to="/mod">Moderator Board</router-link>
+        </li>
+        <li>
+          <router-link v-if="currentUser" to="/user">User</router-link>
+        </li>
+      </div>
+
+      <div v-if="!currentUser">
+        <li>
+          <router-link to="/register">
+            <font-awesome-icon icon="user-plus" /> Sign Up
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/login">
+            <font-awesome-icon icon="sign-in-alt" /> Login
+          </router-link>
+        </li>
+      </div>
+
+      <div v-if="currentUser">
+        <li>
+          <router-link to="/profile">
+            <font-awesome-icon icon="user" />
+            {{ currentUser.username }}
+          </router-link>
+        </li>
+        <li>
+          <a @click.prevent="logOut">
+            <font-awesome-icon icon="sign-out-alt" /> LogOut
+          </a>
+        </li>
+      </div>
+    </nav>
+
+    <div>
+      <router-view />
+    </div>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser["roles"]) {
+        return this.currentUser["roles"].includes("ROLE_ADMIN");
+      }
 
-nav {
-  padding: 30px;
-}
+      return false;
+    },
+    showModeratorBoard() {
+      if (this.currentUser && this.currentUser["roles"]) {
+        return this.currentUser["roles"].includes("ROLE_MODERATOR");
+      }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+      return false;
+    },
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    },
+  },
+};
+</script>
