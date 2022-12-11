@@ -42,8 +42,13 @@ db.user.belongsToMany(db.role, {
 });
 
 db.status.hasMany(db.competence);
+db.competence.belongsTo(db.status);
+
 db.user.hasMany(db.competence);
+db.competence.belongsTo(db.user);
+
 db.competence.hasMany(db.resource);
+db.resource.belongsTo(db.competence);
 
 db.ROLES = ["user", "admin", "moderator"];
 

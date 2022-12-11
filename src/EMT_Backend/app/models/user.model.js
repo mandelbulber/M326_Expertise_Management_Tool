@@ -1,10 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false,
+      isEmail: true
     },
     password: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false
     },
     firstname: {
       type: Sequelize.STRING
