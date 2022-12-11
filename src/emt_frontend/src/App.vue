@@ -8,12 +8,6 @@
         <li v-if="showAdminBoard">
           <router-link to="/admin">Admin Board</router-link>
         </li>
-        <li v-if="showModeratorBoard">
-          <router-link to="/mod">Moderator Board</router-link>
-        </li>
-        <li>
-          <router-link v-if="currentUser" to="/user">User</router-link>
-        </li>
       </div>
 
       <div v-if="!currentUser">
@@ -52,13 +46,6 @@ export default {
     showAdminBoard() {
       if (this.currentUser && this.currentUser["roles"]) {
         return this.currentUser["roles"].includes("ROLE_ADMIN");
-      }
-
-      return false;
-    },
-    showModeratorBoard() {
-      if (this.currentUser && this.currentUser["roles"]) {
-        return this.currentUser["roles"].includes("ROLE_MODERATOR");
       }
 
       return false;

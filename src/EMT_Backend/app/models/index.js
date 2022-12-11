@@ -50,6 +50,6 @@ db.competence.belongsTo(db.user);
 db.competence.hasMany(db.resource);
 db.resource.belongsTo(db.competence);
 
-db.ROLES = ["user", "admin", "moderator"];
+db.ROLES = ["teacher", "admin"];
 
 module.exports = db;
