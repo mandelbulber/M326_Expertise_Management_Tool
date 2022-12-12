@@ -41,14 +41,14 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
-db.status.hasMany(db.competence);
-db.competence.belongsTo(db.status);
+db.status.hasMany(db.competence, { foreignKey: 'statusId' });
+db.competence.belongsTo(db.status, { foreignKey: 'statusId' });
 
-db.user.hasMany(db.competence);
-db.competence.belongsTo(db.user);
+db.user.hasMany(db.competence, { foreignKey: 'userId' });
+db.competence.belongsTo(db.user, { foreignKey: 'userId' });
 
-db.competence.hasMany(db.resource);
-db.resource.belongsTo(db.competence);
+db.competence.hasMany(db.resource, { foreignKey: 'competenceId' });
+db.resource.belongsTo(db.competence, { foreignKey: 'competenceId' });
 
 db.ROLES = ["teacher", "admin"];
 

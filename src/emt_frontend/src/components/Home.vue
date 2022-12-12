@@ -8,19 +8,28 @@
     <table>
       <thead>
         <tr>
-          <th>Competence Name</th>
-          <th>Competence Description</th>
+          <th>X</th>
+          <th>Y</th>
+          <th>Z</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="competence in competences" :key="competence.id">
-          <td>
-            {{ competence.name }}
-          </td>
-          <td>
-            {{ competence.description }}
-          </td>
-        </tr>
+        <table v-for="competence in competences" :key="competence.id">
+          <thead>
+            <th>{{ competence.name }}</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ competence.description }}</td>
+            </tr>
+            <tr>
+              <td>{{ competence.user.email }}</td>
+            </tr>
+            <tr>
+              <td>{{ competence.status.name }}</td>
+            </tr>
+          </tbody>
+        </table>
       </tbody>
     </table>
   </div>
@@ -35,11 +44,11 @@ export default {
   data() {
     return {
       content: "",
-      competences: []
+      competences: [],
     };
   },
   mounted() {
-    UserService.getPublicContent().then(
+    UserService.getHomeContent().then(
       (response) => {
         this.content = response.data;
       },
@@ -52,15 +61,13 @@ export default {
           error.toString();
 
         if (error.response.status == 403) {
-          this.$router.push("/register");
+          this.$router.push("/login");
         }
       }
     );
-    CompetenceService.getAllCompetences().then(
-      (response) => {
-        this.competences = response.data;
-      }
-    );
+    CompetenceService.getAllCompetences().then((response) => {
+      this.competences = response.data;
+    });
   },
 };
 </script>

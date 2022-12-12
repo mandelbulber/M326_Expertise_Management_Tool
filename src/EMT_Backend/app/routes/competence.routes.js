@@ -1,3 +1,4 @@
+const { authJwt } = require("../middleware");
 const controller = require("../controllers/competence.controller");
 
 module.exports = function (app) {
@@ -9,5 +10,5 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/competence", controller.all);
+  app.get("/api/competence", [authJwt.verifyToken], controller.getAllByUser);
 };

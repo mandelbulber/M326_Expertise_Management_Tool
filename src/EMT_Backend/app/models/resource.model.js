@@ -3,7 +3,9 @@ module.exports = (sequelize, Sequelize) => {
       url: {
         type: Sequelize.STRING,
         allowNull: false,
-        isUrl: true
+        validate: {
+          isUrl: true
+        }
       }
     });
   
