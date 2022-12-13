@@ -2,6 +2,7 @@ const db = require("../models");
 const Competence = db.competence;
 const Status = db.status;
 const User = db.user;
+const CompetenceCategory = db.competencecategory;
 
 exports.getAllByUser = (req, res) => {
   Competence.findAll(
@@ -9,7 +10,7 @@ exports.getAllByUser = (req, res) => {
       where: {userId: req.userId},
       raw: true, 
       nest: true,
-      include: [Status, User]
+      include: [Status, User, CompetenceCategory]
     }).then((competences) => {
     return res.send(competences).status(200);
   });

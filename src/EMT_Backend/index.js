@@ -48,8 +48,17 @@ const Status = db.status;
 const Competence = db.competence;
 const User = db.user;
 const Resource = db.resource;
+const CompetenceCategory = db.competencecategory;
 
 function addTestData() {
+  CompetenceCategory.findOrCreate({
+    where: { id: 1, name: "TestCompetenceCategory1"}
+  });
+
+  CompetenceCategory.findOrCreate({
+    where: { id: 2, name: "TestCompetenceCategory2"}
+  });
+
   Role.findOrCreate({
     where: { id: 1, name: "teacher" },
   });
@@ -100,7 +109,8 @@ function addTestData() {
       name: "TestCompetence1",
       description: "TestCompetence1Desc",
       statusId: 1,
-      userId: 1
+      userId: 1,
+      competenceCategoryId: 1
     },
   });
 
@@ -110,7 +120,8 @@ function addTestData() {
       name: "TestCompetence2",
       description: "TestCompetence2Desc",
       statusId: 2,
-      userId: 1
+      userId: 1,
+      competenceCategoryId: 2
     },
   });
 

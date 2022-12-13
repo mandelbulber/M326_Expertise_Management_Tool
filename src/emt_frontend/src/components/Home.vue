@@ -28,6 +28,9 @@
             <tr>
               <td>{{ competence.status.name }}</td>
             </tr>
+            <tr>
+              <td>{{ competence.competence_category.name }}</td>
+            </tr>
           </tbody>
         </table>
       </tbody>

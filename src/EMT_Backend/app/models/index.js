@@ -29,6 +29,7 @@ db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.status = require("../models/status.model.js")(sequelize, Sequelize);
 db.competence = require("../models/competence.model.js")(sequelize, Sequelize);
 db.resource = require("../models/resource.model.js")(sequelize, Sequelize);
+db.competencecategory = require("../models/competenceCategory.model")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -49,6 +50,9 @@ db.competence.belongsTo(db.user, { foreignKey: 'userId' });
 
 db.competence.hasMany(db.resource, { foreignKey: 'competenceId' });
 db.resource.belongsTo(db.competence, { foreignKey: 'competenceId' });
+
+db.competencecategory.hasMany(db.competence, {foreignKey: 'competenceCategoryId'});
+db.competence.belongsTo(db.competencecategory, {foreignKey: 'competenceCategoryId'});
 
 db.ROLES = ["teacher", "admin"];
 
