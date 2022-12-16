@@ -27,6 +27,12 @@ class CompetenceService {
       headers: authHeader()
     });
   }
+
+  addCompetence(competence){
+    return axios.post(API_URL + "add", competence, {
+      headers: authHeader()
+    });
+  }
 }
 
 export default new CompetenceService();

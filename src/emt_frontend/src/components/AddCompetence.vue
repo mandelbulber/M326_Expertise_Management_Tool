@@ -37,9 +37,7 @@
     </div>
 
     <div>
-      <button @click="editCompetence(competence)">
-        Save
-      </button>
+      <button @click="addCompetence(competence)">Add</button>
     </div>
   </div>
 </template>
@@ -55,29 +53,15 @@ export default {
   components: {
     vSelect,
   },
-  name: "EditCompetence",
+  name: "AddCompetence",
   data() {
     return {
       difficulties: [],
       categories: [],
-      competence: "",
+      competence: {},
     };
   },
   mounted() {
-    CompetenceService.getCompetenceById(this.$route.params.id).then(
-      (response) => {
-        this.competence = response.data;
-      },
-      (error) => {
-        console.log(
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString()
-        );
-      }
-    );
     CategoryService.getAll().then(
       (response) => {
         this.categories = response.data;
@@ -108,10 +92,10 @@ export default {
     );
   },
   methods: {
-    editCompetence(data) {
+    addCompetence(data) {
       try {
-        CompetenceService.editCompetence(data).then((response) => {
-          if(response.status == 200){
+        CompetenceService.addCompetence(data).then((response) => {
+          if (response.status == 200) {
             history.back();
           }
         });

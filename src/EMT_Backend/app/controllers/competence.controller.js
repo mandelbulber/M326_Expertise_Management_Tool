@@ -14,7 +14,9 @@ exports.getAllByUser = (req, res) => {
       {
         model: User_Competneces,
         include: [User, Competence, Status],
-      }, Category, Difficulty
+      },
+      Category,
+      Difficulty,
     ],
   }).then((competences) => {
     return res.send(competences).status(200);
@@ -28,9 +30,11 @@ exports.getAllByUserId = (req, res) => {
     include: [
       {
         model: User_Competneces,
-        where: {userId: req.query.id},
+        where: { userId: req.query.id },
         include: [User, Competence, Status],
-      }, Category, Difficulty
+      },
+      Category,
+      Difficulty,
     ],
   }).then((competences) => {
     return res.send(competences).status(200);
@@ -45,7 +49,9 @@ exports.getById = (req, res) => {
       {
         model: User_Competneces,
         include: [User, Competence, Status],
-      }, Category, Difficulty
+      },
+      Category,
+      Difficulty,
     ],
   }).then((competence) => {
     return res.send(competence).status(200);
@@ -53,14 +59,28 @@ exports.getById = (req, res) => {
 };
 
 exports.edit = (req, res) => {
-  Competence.findByPk(req.body.id).then((competence) => {
-    competence.update({
-      name: req.body.name,
-      description: req.body.description,
-      categoryId: req.body.category.id,
-      difficultyId: req.body.difficulty.id
+  Competence.findByPk(req.body.id)
+    .then((competence) => {
+      competence.update({
+        name: req.body.name,
+        description: req.body.description,
+        categoryId: req.body.category.id,
+        difficultyId: req.body.difficulty.id,
+      });
     })
-  }).then(() => {
-        return res.send({ message: "Competence Updated!" }).status(200);
+    .then(() => {
+      return res.send({ message: "Competence Updated!" }).status(200);
+    });
+};
+
+exports.add = (req, res) => {
+  Competence.create({
+    name: req.body.name,
+    description: req.body.description,
+    categoryId: req.body.category.id,
+    difficultyId: req.body.difficulty.id,
+  }).then((response) => {
+    console.log(response);
+    return res.send({ message: "Competence Added!" }).status(200);
   });
-}
+};

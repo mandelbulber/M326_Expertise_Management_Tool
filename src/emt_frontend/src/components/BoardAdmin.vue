@@ -2,8 +2,8 @@
   <div>
     <header>
       <h3>{{ content }}</h3>
-      
-      <p> {{users}} </p>
+
+      <p>{{ users }}</p>
     </header>
     <div>
       <p>User</p>
@@ -14,7 +14,11 @@
         :clearable="false"
       ></v-select>
       <!-- https://vue-select.org/guide/values.html#getting-and-setting -->
-      <p v-if="selectResult != ''">Add</p>
+      <router-link
+        :to="{ name: 'add' }"
+      >
+        Add
+      </router-link>
       <div v-if="competences.length > 0">
         <table v-for="competence in competences" :key="competence.id">
           <thead>
