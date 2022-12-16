@@ -51,3 +51,16 @@ exports.getById = (req, res) => {
     return res.send(competence).status(200);
   });
 };
+
+exports.edit = (req, res) => {
+  Competence.findByPk(req.body.id).then((competence) => {
+    competence.update({
+      name: req.body.name,
+      description: req.body.description,
+      categoryId: req.body.category.id,
+      difficultyId: req.body.difficulty.id
+    })
+  }).then(() => {
+        return res.send({ message: "Competence Updated!" }).status(200);
+  });
+}

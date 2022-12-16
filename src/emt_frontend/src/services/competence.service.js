@@ -16,10 +16,15 @@ class CompetenceService {
   }
 
   getCompetenceById(competenceId) {
-    console.log(competenceId);
     return axios.get(API_URL + "edit", {
       headers: authHeader(),
       params: { id: competenceId },
+    });
+  }
+
+  editCompetence(competence){
+    return axios.post(API_URL + "edit", competence, {
+      headers: authHeader()
     });
   }
 }

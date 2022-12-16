@@ -100,7 +100,6 @@ export default {
       if (newResult != "" && newResult != null) {
         CompetenceService.getAllCompetencesByUserId(this.selectResult.id).then(
           (response) => {
-            console.log(response.data);
             this.competences = response.data;
           },
           (error) => {

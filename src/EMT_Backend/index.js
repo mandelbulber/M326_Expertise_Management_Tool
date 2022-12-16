@@ -57,38 +57,56 @@ const Difficulty = db.difficulty;
 function addTestData() {
   Difficulty.findOrCreate({
     where: { id: 1, name: db.DIFFICULTIES[0] },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Difficulty.findOrCreate({
     where: { id: 2, name: db.DIFFICULTIES[1] },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Difficulty.findOrCreate({
     where: { id: 3, name: db.DIFFICULTIES[2] },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Category.findOrCreate({
     where: { id: 1, name: "TestCategory1" },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Category.findOrCreate({
     where: { id: 2, name: "TestCategory2" },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Role.findOrCreate({
     where: { id: 1, name: db.ROLES[0] },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Role.findOrCreate({
     where: { id: 2, name: db.ROLES[1] },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Status.findOrCreate({
     where: { id: 1, name: "TestStatus1" },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Status.findOrCreate({
     where: { id: 2, name: "TestStatus2" },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   User.findOrCreate({
@@ -99,11 +117,15 @@ function addTestData() {
       firstname: "Test",
       lastname: "ing",
     },
-  }).then((user) => {
-    if (user[1]) {
-      user[0].setRoles([1, 2]);
-    }
-  });
+  })
+    .then((user) => {
+      if (user[1]) {
+        user[0].setRoles([1, 2]);
+      }
+    })
+    .catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
 
   User.findOrCreate({
     where: {
@@ -113,11 +135,15 @@ function addTestData() {
       firstname: "Test2",
       lastname: "ing",
     },
-  }).then((user) => {
-    if (user[1]) {
-      user[0].setRoles([1]);
-    }
-  });
+  })
+    .then((user) => {
+      if (user[1]) {
+        user[0].setRoles([1]);
+      }
+    })
+    .catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
 
   Competence.findOrCreate({
     where: {
@@ -127,11 +153,15 @@ function addTestData() {
       categoryId: 1,
       difficultyId: 1,
     },
-  }).then((competence) => {
-    if (competence[1]) {
-      competence[0].addUser(1, { through: { statusId: 1 } });
-    }
-  });
+  })
+    .then((competence) => {
+      if (competence[1]) {
+        competence[0].addUser(1, { through: { statusId: 1 } });
+      }
+    })
+    .catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
 
   Competence.findOrCreate({
     where: {
@@ -141,11 +171,15 @@ function addTestData() {
       categoryId: 2,
       difficultyId: 2,
     },
-  }).then((competence) => {
-    if (competence[1]) {
-      competence[0].addUser(1, { through: { statusId: 2 } });
-    }
-  });;
+  })
+    .then((competence) => {
+      if (competence[1]) {
+        competence[0].addUser(1, { through: { statusId: 2 } });
+      }
+    })
+    .catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
 
   Resource.findOrCreate({
     where: {
@@ -153,6 +187,8 @@ function addTestData() {
       url: "https://someResource1.com/",
       competenceId: 1,
     },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 
   Resource.findOrCreate({
@@ -161,5 +197,7 @@ function addTestData() {
       url: "https://someResource2.com/",
       competenceId: 2,
     },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
   });
 }

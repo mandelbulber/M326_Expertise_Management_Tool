@@ -37,7 +37,9 @@
     </div>
 
     <div>
-      <button @click="">Save</button>
+      <button @click="editCompetence(competence)">
+        Save
+      </button>
     </div>
   </div>
 </template>
@@ -56,8 +58,8 @@ export default {
   name: "EditCompetence",
   data() {
     return {
-      difficulties: [], 
-      categories: [], 
+      difficulties: [],
+      categories: [],
       competence: "",
     };
   },
@@ -106,7 +108,17 @@ export default {
     );
   },
   methods: {
-    updateCompetence() {},
+    editCompetence(data) {
+      try {
+        CompetenceService.editCompetence(data).then((response) => {
+          if(response.status == 200){
+            history.back();
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>
