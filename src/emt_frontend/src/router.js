@@ -3,8 +3,10 @@ import Home from "./components/Home.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 // lazy-loaded
-const Profile = () => import("./components/Profile.vue")
-const BoardAdmin = () => import("./components/BoardAdmin.vue")
+const Profile = () => import("./components/Profile.vue");
+const BoardAdmin = () => import("./components/BoardAdmin.vue");
+const EditCompetence = () => import("./components/EditCompetence.vue");
+const AddCompetence = () => import("./components/AddCompetence.vue");
 
 const routes = [
   {
@@ -31,6 +33,18 @@ const routes = [
     name: "admin",
     // lazy-loaded
     component: BoardAdmin,
+  },
+  {
+    path: "/competence/edit/:id",
+    name: "edit",
+    // lazy-loaded
+    component: EditCompetence,
+  },
+  {
+    path: "/competence/add",
+    name: "add",
+    // lazy-loaded
+    component: AddCompetence,
   },
 ];
 

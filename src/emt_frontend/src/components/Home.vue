@@ -4,35 +4,36 @@
       <h3>{{ content }}</h3>
     </header>
   </div>
-  <div>
+  <div v-for="category in categories" :key="category.id">
     <table>
       <thead>
         <tr>
-          <th>X</th>
-          <th>Y</th>
-          <th>Z</th>
+          <th colspan="3">{{category.name}}</th>
+        </tr>
+        <tr>
+          <th v-for="difficulty in difficulties" :key="difficulty.id">
+            {{ difficulty.name }}
+          </th>
         </tr>
       </thead>
       <tbody>
-        <table v-for="competence in competences" :key="competence.id">
-          <thead>
-            <th>{{ competence.name }}</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ competence.description }}</td>
-            </tr>
-            <tr>
-              <td>{{ competence.user.email }}</td>
-            </tr>
-            <tr>
-              <td>{{ competence.status.name }}</td>
-            </tr>
-            <tr>
-              <td>{{ competence.competence_category.name }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <td v-for="difficulty in difficulties" :key="difficulty.id">
+          <table v-for="competence in competences" :key="competence.id">
+            <div v-if="competence.difficulty.name == difficulty.name && competence.category.name == category.name">
+              <thead>
+                <th>{{ competence.name }}</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ competence.description }}</td>
+                </tr>
+                <tr>
+                  <td>{{ competence.category.name }}</td>
+                </tr>
+              </tbody>
+            </div>
+          </table>
+        </td>
       </tbody>
     </table>
   </div>
@@ -41,6 +42,8 @@
 <script>
 import UserService from "../services/user.service";
 import CompetenceService from "../services/competence.service";
+import DifficultyService from "../services/difficulty.service";
+import CategoryService from "@/services/category.service";
 
 export default {
   name: "Home",
@@ -48,6 +51,8 @@ export default {
     return {
       content: "",
       competences: [],
+      difficulties: [],
+      categories: [],
     };
   },
   mounted() {
@@ -68,9 +73,48 @@ export default {
         }
       }
     );
-    CompetenceService.getAllCompetences().then((response) => {
-      this.competences = response.data;
-    });
+    CompetenceService.getAll().then(
+      (response) => {
+        this.competences = response.data;
+      },
+      (error) => {
+        console.log(
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+      }
+    );
+    DifficultyService.getAll().then(
+      (response) => {
+        this.difficulties = response.data;
+      },
+      (error) => {
+        console.log(
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+      }
+    );
+    CategoryService.getAll().then(
+      (response) => {
+        this.categories = response.data;
+      },
+      (error) => {
+        console.log(
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+      }
+    );
   },
 };
 </script>
