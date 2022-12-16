@@ -11,4 +11,8 @@ module.exports = function (app) {
   });
 
   app.get("/api/competence", [authJwt.verifyToken], controller.getAllByUser);
+
+  app.get("/api/competence/user", [authJwt.verifyToken], controller.getAllByUserId);
+
+  app.get("/api/competence/edit", [authJwt.verifyToken, authJwt.isAdmin], controller.getById);
 };

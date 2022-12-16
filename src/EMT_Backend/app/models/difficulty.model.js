@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-    const CompetenceCategory = sequelize.define("competence_categories", {
+    const Difficulty = sequelize.define("difficulties", {
       name: {
         type: Sequelize.STRING,
         allowNull: false
       }
     });
   
-    return CompetenceCategory;
+    return Difficulty;
   };
   

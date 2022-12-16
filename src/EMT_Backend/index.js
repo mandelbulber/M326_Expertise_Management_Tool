@@ -36,6 +36,9 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/competence.routes")(app);
+require("./app/routes/difficulty.routes")(app);
+require("./app/routes/category.routes")(app);
+require("./app/routes/status.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -48,23 +51,36 @@ const Status = db.status;
 const Competence = db.competence;
 const User = db.user;
 const Resource = db.resource;
-const CompetenceCategory = db.competencecategory;
+const Category = db.category;
+const Difficulty = db.difficulty;
 
 function addTestData() {
-  CompetenceCategory.findOrCreate({
-    where: { id: 1, name: "TestCompetenceCategory1"}
+  Difficulty.findOrCreate({
+    where: { id: 1, name: db.DIFFICULTIES[0] },
   });
 
-  CompetenceCategory.findOrCreate({
-    where: { id: 2, name: "TestCompetenceCategory2"}
+  Difficulty.findOrCreate({
+    where: { id: 2, name: db.DIFFICULTIES[1] },
+  });
+
+  Difficulty.findOrCreate({
+    where: { id: 3, name: db.DIFFICULTIES[2] },
+  });
+
+  Category.findOrCreate({
+    where: { id: 1, name: "TestCategory1" },
+  });
+
+  Category.findOrCreate({
+    where: { id: 2, name: "TestCategory2" },
   });
 
   Role.findOrCreate({
-    where: { id: 1, name: "teacher" },
+    where: { id: 1, name: db.ROLES[0] },
   });
 
   Role.findOrCreate({
-    where: { id: 2, name: "admin" },
+    where: { id: 2, name: db.ROLES[1] },
   });
 
   Status.findOrCreate({
@@ -81,13 +97,13 @@ function addTestData() {
       email: "test@test.com",
       password: "$2a$08$aobMGyJJEby4irclcekV6..wAgJf3/MibRkPGF3eiODbZnvZiMj0q",
       firstname: "Test",
-      lastname: "ing"
+      lastname: "ing",
+    },
+  }).then((user) => {
+    if (user[1]) {
+      user[0].setRoles([1, 2]);
     }
-  }).then(user => {
-    if(user[1]){
-      user[0].setRoles([1,2]);
-    }
-  })
+  });
 
   User.findOrCreate({
     where: {
@@ -95,23 +111,26 @@ function addTestData() {
       email: "test2@test.com",
       password: "$2a$08$aobMGyJJEby4irclcekV6..wAgJf3/MibRkPGF3eiODbZnvZiMj0q",
       firstname: "Test2",
-      lastname: "ing"
-    }
-  }).then(user => {
-    if(user[1]){
+      lastname: "ing",
+    },
+  }).then((user) => {
+    if (user[1]) {
       user[0].setRoles([1]);
     }
-  })
+  });
 
   Competence.findOrCreate({
     where: {
       id: 1,
       name: "TestCompetence1",
       description: "TestCompetence1Desc",
-      statusId: 1,
-      userId: 1,
-      competenceCategoryId: 1
+      categoryId: 1,
+      difficultyId: 1,
     },
+  }).then((competence) => {
+    if (competence[1]) {
+      competence[0].addUser(1, { through: { statusId: 1 } });
+    }
   });
 
   Competence.findOrCreate({
@@ -119,17 +138,20 @@ function addTestData() {
       id: 2,
       name: "TestCompetence2",
       description: "TestCompetence2Desc",
-      statusId: 2,
-      userId: 1,
-      competenceCategoryId: 2
+      categoryId: 2,
+      difficultyId: 2,
     },
-  });
+  }).then((competence) => {
+    if (competence[1]) {
+      competence[0].addUser(1, { through: { statusId: 2 } });
+    }
+  });;
 
   Resource.findOrCreate({
     where: {
       id: 1,
       url: "https://someResource1.com/",
-      competenceId: 1
+      competenceId: 1,
     },
   });
 
@@ -137,7 +159,7 @@ function addTestData() {
     where: {
       id: 2,
       url: "https://someResource2.com/",
-      competenceId: 2
+      competenceId: 2,
     },
   });
 }
