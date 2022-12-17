@@ -1,32 +1,35 @@
 <template>
-  <div>
-    <div>
-      <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-      <Form @submit="handleLogin" :validation-schema="schema">
-        <div>
-          <label for="email">Email</label>
-          <Field name="email" type="text" />
-          <ErrorMessage name="email" />
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <Field name="password" type="password" />
-          <ErrorMessage name="password" />
-        </div>
-
-        <div>
-          <button :disabled="loading">
-            <span v-show="loading"></span>
-            <span>Login</span>
-          </button>
-        </div>
-
-        <div>
-          <div v-if="message" role="alert">
-            {{ message }}
+  <div style="display: flex; justify-content: center;">
+    <div class="card bg-dark text-light" style="width: 35%; margin: 2%; border-radius: 10%;">
+      <div class="card-body" style="text-align: center;">
+        <img src="../assets/logo.png" style="width: 50%;" class="d-inline-block align-text-top">
+        <hr />
+        <h1 class="card-title">Sign in</h1>
+        <Form @submit="handleLogin" :validation-schema="schema">
+          <div class=" m-3">
+            <Field name="email" type="text" class="form-control" placeholder="Email" />
+            <ErrorMessage name="email" />
           </div>
-        </div>
-      </Form>
+          <div class=" m-3">
+            <Field name="password" type="password" class="form-control" placeholder="Password" />
+            <ErrorMessage name="password" />
+          </div>
+          <div>
+            <button :disabled="loading" class="btn btn-outline-light">
+              <span v-show="loading"></span>
+              <span>Sign in</span>
+            </button>
+          </div>
+          <div>
+            <div v-if="message" role="alert">
+              {{ message }}
+            </div>
+          </div>
+        </Form>
+        <hr />
+        <router-link to="/register" class="text-light" style="text-decoration: none;">
+          Don't have an account? Sign Up</router-link>
+      </div>
     </div>
   </div>
 </template>
