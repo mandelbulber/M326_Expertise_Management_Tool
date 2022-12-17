@@ -1,27 +1,26 @@
 <template>
-  <div>
-    <header>
-      <h3>
-        <strong>{{ currentUser.email }}</strong> Profile
-      </h3>
-    </header>
-    <p>
-      <strong>Token:</strong>
-      {{ currentUser.accessToken.substring(0, 20) }} ...
-      {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
-    </p>
-    <p>
-      <strong>Id:</strong>
-      {{ currentUser.id }}
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{ currentUser.email }}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="role in currentUser.roles" :key="role">{{ role }}</li>
-    </ul>
+  <div style="margin: 5vh; height: 77.9vh;">
+    <h1>Your profile</h1>
+    <hr />
+    <table>
+      <tr>
+        <td style="width: 10vw;">
+          <h4>email:</h4>
+        </td>
+        <td style="width: 10vw;">
+          <h4>{{ currentUser.email }}</h4>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h4>your role(s):</h4>
+        </td>
+        <td v-for="role in currentUser.roles" :key="role">
+          <h4>{{ role }}</h4>
+        </td>
+      </tr>
+    </table>
+    <hr/>
   </div>
 </template>
 
