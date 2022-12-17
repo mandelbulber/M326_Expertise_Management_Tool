@@ -39,6 +39,7 @@ require("./app/routes/competence.routes")(app);
 require("./app/routes/difficulty.routes")(app);
 require("./app/routes/category.routes")(app);
 require("./app/routes/status.routes")(app);
+require("./app/routes/resource.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -98,13 +99,18 @@ function addTestData() {
   });
 
   Status.findOrCreate({
-    where: { id: 1, name: "TestStatus1" },
+    where: { id: 1, name: "ToDo" },
   }).catch((err) => {
     console.log(err.message + " | " + err.name);
   });
 
   Status.findOrCreate({
-    where: { id: 2, name: "TestStatus2" },
+    where: { id: 2, name: "In Progress" },
+  }).catch((err) => {
+    console.log(err.message + " | " + err.name);
+  });
+  Status.findOrCreate({
+    where: { id: 3, name: "Done" },
   }).catch((err) => {
     console.log(err.message + " | " + err.name);
   });
@@ -195,7 +201,7 @@ function addTestData() {
     where: {
       id: 2,
       url: "https://someResource2.com/",
-      competenceId: 2,
+      competenceId: 1,
     },
   }).catch((err) => {
     console.log(err.message + " | " + err.name);

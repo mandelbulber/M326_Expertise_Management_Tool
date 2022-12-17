@@ -10,7 +10,7 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/competence", [authJwt.verifyToken], controller.getAllByUser);
+  app.get("/api/competence", [authJwt.verifyToken], controller.getAll);
 
   app.get("/api/competence/user", [authJwt.verifyToken], controller.getAllByUserId);
 

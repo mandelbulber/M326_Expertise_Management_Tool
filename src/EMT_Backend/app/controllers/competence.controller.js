@@ -5,11 +5,10 @@ const User = db.user;
 const Category = db.category;
 const Difficulty = db.difficulty;
 const User_Competneces = db.user_competences;
+const Resource = db.resource;
 
-exports.getAllByUser = (req, res) => {
+exports.getAll = (req, res) => {
   Competence.findAll({
-    raw: true,
-    nest: true,
     include: [
       {
         model: User_Competneces,
@@ -17,6 +16,7 @@ exports.getAllByUser = (req, res) => {
       },
       Category,
       Difficulty,
+      Resource,
     ],
   }).then((competences) => {
     return res.send(competences).status(200);
@@ -25,8 +25,6 @@ exports.getAllByUser = (req, res) => {
 
 exports.getAllByUserId = (req, res) => {
   Competence.findAll({
-    raw: true,
-    nest: true,
     include: [
       {
         model: User_Competneces,
@@ -35,6 +33,7 @@ exports.getAllByUserId = (req, res) => {
       },
       Category,
       Difficulty,
+      Resource,
     ],
   }).then((competences) => {
     return res.send(competences).status(200);
@@ -43,8 +42,6 @@ exports.getAllByUserId = (req, res) => {
 
 exports.getById = (req, res) => {
   Competence.findByPk(req.query.id, {
-    raw: true,
-    nest: true,
     include: [
       {
         model: User_Competneces,
@@ -52,6 +49,7 @@ exports.getById = (req, res) => {
       },
       Category,
       Difficulty,
+      Resource,
     ],
   }).then((competence) => {
     return res.send(competence).status(200);
@@ -59,16 +57,29 @@ exports.getById = (req, res) => {
 };
 
 exports.edit = (req, res) => {
-  Competence.findByPk(req.body.id)
+  Competence.findByPk(req.body.id,{include: [Resource, Category, Difficulty]})
     .then((competence) => {
-      competence.update({
+      competence.update(
+        {
         name: req.body.name,
         description: req.body.description,
         categoryId: req.body.category.id,
         difficultyId: req.body.difficulty.id,
-      });
-    })
-    .then(() => {
+      }
+      );
+      req.body.resources.forEach(resourceNew => {
+        if(resourceNew.id == null || resourceNew.id == ""){
+          Resource.create(resourceNew);
+        }
+        competence.resources.forEach(resourceExisting => {
+          if(resourceExisting.id == resourceNew.id){
+            resourceExisting.update({
+              url: resourceNew.url
+            });
+          }
+        })
+      });    
+    }).then(() => {
       return res.send({ message: "Competence Updated!" }).status(200);
     });
 };
@@ -79,8 +90,18 @@ exports.add = (req, res) => {
     description: req.body.description,
     categoryId: req.body.category.id,
     difficultyId: req.body.difficulty.id,
-  }).then((response) => {
-    console.log(response);
+  }).then((competence) => {
+    if(req.body.resources){
+      req.body.resources.forEach(resourceNew => {
+        if(resourceNew.id == null || resourceNew.id == ""){
+          Resource.create({
+            url: resourceNew.url,
+            competenceId: competence.id
+          });
+        }
+      }); 
+    }
+  }).then(() => {
     return res.send({ message: "Competence Added!" }).status(200);
   });
 };

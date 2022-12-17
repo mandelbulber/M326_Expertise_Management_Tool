@@ -12,8 +12,6 @@ exports.adminBoard = (req, res) => {
 
 exports.getAllUsers = (req, res) => {
   User.findAll({
-    raw: true,
-    nest: true,
   }).then((users) => {
     return res.send(users).status(200);
   });

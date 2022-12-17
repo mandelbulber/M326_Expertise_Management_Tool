@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import UserService from "../services/user.service";
+import UserService from "@/services/user.service";
 import CompetenceService from "@/services/competence.service";
-import DifficultyService from "../services/difficulty.service";
+import DifficultyService from "@/services/difficulty.service";
 import CategoryService from "@/services/category.service";
 import "vue-select/dist/vue-select.css";
 import vSelect from "vue-select";
