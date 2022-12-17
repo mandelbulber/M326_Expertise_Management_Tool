@@ -41,6 +41,13 @@
     <article>
       <router-view />
     </article>
+    <footer class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <div class="buffer"></div>
+          <p class="text-light">Copyright &copy; EMT | Expertise Management Tool</p>
+        <div class="buffer"></div>
+      </div>
+    </footer>
   </div>
 </template>
 
