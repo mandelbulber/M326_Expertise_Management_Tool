@@ -35,8 +35,8 @@
                   <div style="display: flex;">
                     <router-link :to="{ name: 'edit', params: { id: competence.id } }" class="btn btn-outline-dark"
                       style="width: 50%; margin: 1%;">Edit competence</router-link>
-                    <router-link :to="{ name: '' }" class="btn btn-outline-danger"
-                      style="width: 50%; margin: 1%;">Delete competence</router-link>
+                    <button @click="deleteCompetence(competence)" class="btn btn-outline-danger"
+                      style="width: 50%; margin: 1%;">Delete competence</button>
                   </div>
                 </div>
               </div>
@@ -147,6 +147,20 @@ export default {
         );
       }
     },
+  },
+  methods: {
+    deleteCompetence(competence) {
+      var result = confirm("Are you sure to delete the Competence with the name " + competence.name + "?");
+      if(result){
+        CompetenceService.deleteCompetence(competence.id).then((res) => {
+          if(res.status == 200){
+            CompetenceService.getAll().then((response) => {
+              this.competences = response.data;
+            });
+          }
+        });
+      }
+    }
   },
 };
 </script>

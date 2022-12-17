@@ -105,3 +105,27 @@ exports.add = (req, res) => {
     return res.send({ message: "Competence Added!" }).status(200);
   });
 };
+
+exports.delete = (req, res) => {
+  console.log(req.body)
+  Competence.findByPk(req.body.id, {
+    include: [
+      {
+        model: User_Competneces,
+        include: [User, Competence, Status],
+      },
+      Category,
+      Difficulty,
+      Resource,
+    ],
+  }).then((competence) =>{
+    competence.resources.forEach(resource => {
+        Resource.destroy({where: {id: resource.id}});
+    })
+    User_Competneces.destroy({where: {competenceId: competence.id}})
+  }).then(() => {
+    Competence.destroy({where: {id: req.body.id}}).then(() => {
+      return res.send("Deleted Competence!").status(200);
+    })
+  });
+};

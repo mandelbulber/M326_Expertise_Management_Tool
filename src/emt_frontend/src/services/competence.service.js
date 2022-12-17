@@ -33,6 +33,12 @@ class CompetenceService {
       headers: authHeader()
     });
   }
+
+  deleteCompetence(id){
+    return axios.post(API_URL + "delete", {id: id} , {
+      headers: authHeader()
+    })
+  }
 }
 
 export default new CompetenceService();

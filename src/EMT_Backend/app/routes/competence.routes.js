@@ -19,4 +19,6 @@ module.exports = function (app) {
   app.post("/api/competence/edit", [authJwt.verifyToken, authJwt.isAdmin], controller.edit);
 
   app.post("/api/competence/add", [authJwt.verifyToken, authJwt.isAdmin], controller.add);
+
+  app.post("/api/competence/delete", [authJwt.verifyToken, authJwt.isAdmin], controller.delete);
 };
