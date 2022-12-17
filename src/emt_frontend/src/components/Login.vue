@@ -1,16 +1,16 @@
 <template>
   <div style="display: flex; justify-content: center;">
-    <div class="card bg-dark text-light" style="width: 35%; margin: 2%; border-radius: 10%;">
+    <div class="card bg-dark text-light" style="width: 35vw; height: 65vh; margin: 5.59vw; border-radius: 10%;">
       <div class="card-body" style="text-align: center;">
-        <img src="../assets/logo.png" style="width: 50%;" class="d-inline-block align-text-top">
+        <img src="../assets/logo.png" style="width: 10vw;" class="d-inline-block align-text-top">
         <hr />
         <h1 class="card-title">Sign in</h1>
         <Form @submit="handleLogin" :validation-schema="schema">
-          <div class=" m-3">
+          <div style="margin: 1vw;">
             <Field name="email" type="text" class="form-control" placeholder="Email" />
             <ErrorMessage name="email" />
           </div>
-          <div class=" m-3">
+          <div style="margin: 1vw;">
             <Field name="password" type="password" class="form-control" placeholder="Password" />
             <ErrorMessage name="password" />
           </div>

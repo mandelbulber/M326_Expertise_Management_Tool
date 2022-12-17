@@ -1,35 +1,34 @@
 <template>
-  <div>
-    <div>
-      <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-      <Form @submit="handleRegister" :validation-schema="schema">
-        <div v-if="!successful">
-          <div>
-            <label for="email">Email</label>
-            <Field name="email" type="email" />
+  <div style="display: flex; justify-content: center;">
+    <div class="card bg-dark text-light" style="width: 35vw; height: 65vh; margin: 5.59vw; border-radius: 10%;">
+      <div class="card-body" style="text-align: center;">
+        <img src="../assets/logo.png" style="width: 10vw;" class="d-inline-block align-text-top">
+        <hr />
+        <h1 class="card-title">Sign Up</h1>
+        <Form @submit="handleRegister" :validation-schema="schema">
+          <div style="margin: 1vw;">
+            <Field name="email" type="text" class="form-control" placeholder="Email" />
             <ErrorMessage name="email" />
           </div>
-          <div>
-            <label for="password">Password</label>
-            <Field name="password" type="password" />
+          <div style="margin: 1vw;">
+            <Field name="password" type="password" class="form-control" placeholder="Password" />
             <ErrorMessage name="password" />
           </div>
-
           <div>
-            <button :disabled="loading">
+            <button :disabled="loading" class="btn btn-outline-light">
               <span v-show="loading"></span>
-              Sign Up
+              <span>Sign Up</span>
             </button>
           </div>
-        </div>
-      </Form>
-
-      <div
-        v-if="message"
-        class="alert"
-        :class="successful ? 'alert-success' : 'alert-danger'"
-      >
-        {{ message }}
+          <div>
+            <div v-if="message" role="alert">
+              {{ message }}
+            </div>
+          </div>
+        </Form>
+        <hr />
+        <router-link to="/login" class="text-light" style="text-decoration: none;">
+          Already have an account? Sign in</router-link>
       </div>
     </div>
   </div>
@@ -104,42 +103,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-label {
-  display: block;
-  margin-top: 10px;
-}
-
-.card-container.card {
-  max-width: 350px !important;
-  padding: 40px 40px;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-}
-
-.error-feedback {
-  color: red;
-}
-</style>
