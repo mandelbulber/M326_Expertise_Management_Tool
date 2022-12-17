@@ -43,8 +43,8 @@
             </td>
           </tbody>
         </table>
-        <router-link :to="{ name: 'add' }" class="btn btn-outline-success" style="width: 90%; margin: 1% 5% 1% 5%;">Add
-          new competence</router-link>
+        <router-link :to="{ name: 'add' }" class="btn btn-outline-success" style="width: 90%; margin: 1% 5% 1% 5%;">
+          Add new competence</router-link>
       </div>
     </div>
   </div>
@@ -151,9 +151,9 @@ export default {
   methods: {
     deleteCompetence(competence) {
       var result = confirm("Are you sure to delete the Competence with the name " + competence.name + "?");
-      if(result){
+      if (result) {
         CompetenceService.deleteCompetence(competence.id).then((res) => {
-          if(res.status == 200){
+          if (res.status == 200) {
             CompetenceService.getAll().then((response) => {
               this.competences = response.data;
             });
