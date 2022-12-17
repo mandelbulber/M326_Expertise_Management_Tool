@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
+              <router-link class="nav-link" aria-current="page" to="/">Home</router-link>
             </li>
             <li v-if="showAdminBoard" class="nav-item">
               <router-link class="nav-link" to="/admin">Admin Board</router-link>
@@ -83,6 +83,10 @@ export default {
 </script>
 
 <style>
+nav a.router-link-exact-active{
+  color: rgb(255, 255, 255);
+}
+
 .navbarbtn {
   cursor: pointer;
 }
