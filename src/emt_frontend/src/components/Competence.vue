@@ -1,47 +1,46 @@
 <template>
-  <div>
-    <div><label>Name</label></div>
-    <div>
-      <p>{{ competence.name }}</p>
-    </div>
+  <div style="margin: 1em; display: flex; align-items: center; flex-direction: column; min-height: 84.5vh; ">
+    <h1>{{ competence.name }}</h1>
+    <div class="card" style="width: 50vw;">
+      <div style="margin: 1em">
+        <label class="form-label">Description</label>
+        <input v-model="competence.description" disabled class="form-control bg-light" />
+      </div>
+      <div style="margin: 1em; display: flex; justify-content: space-between;">
+        <div v-if="competence.category" style="width: 30%">
+          <label class="form-label">Category</label>
+          <input v-model="competence.category.name" disabled class="form-control bg-light" />
+        </div>
+        <div v-if="competence.difficulty" style="width: 30%">
+          <label class="form-label">Difficulty</label>
+          <input v-model="competence.difficulty.name" disabled class="form-control bg-light" />
+        </div>
+        <div style="width: 30%">
+          <label class="form-label">Status</label>
+          <v-select :options="status" label="name" v-model="user_competence.status"></v-select>
+        </div>
+      </div>
+      <hr />
+      <div style="margin: 1em; margin-top: 0;">
+        <label class="form-label">Ressources</label>
+        <div v-for="resource in competence.resources" :key="resource.id"
+          style="display: flex; justify-content: space-between; margin: 0.5em 0 0.5em 0.5em">
+          <a :href="resource.url" target="_blank" style="width: 90%;">
+            <input :id="resource.id" :value="resource.url" class="form-control bg-light" disabled />
+          </a>
 
-    <div><label>Description</label></div>
-    <div>
-      <p>{{ competence.description }}</p>
-    </div>
-
-    <div><label>Category</label></div>
-    <div v-if="competence.category">
-      <p>{{ competence.category.name }}</p>
-    </div>
-
-    <div><label>Difficulty</label></div>
-    <div v-if="competence.difficulty">
-      <p>{{ competence.difficulty.name }}</p>
-    </div>
-
-    <div><label>Ressources</label></div>
-    <div v-for="resource in competence.resources" :key="resource.id">
-      <a :href="resource.url">{{ resource.url }}</a>
-    </div>
-
-    <div><label>Status</label></div>
-    <div v-if="competence">
-                  <v-select
-            :options="status"
-            label="name"
-            v-model="user_competence.status"
-          ></v-select>
-          <div v-if="user_competence.new">
-            <button @click="addCompetenceStatus(user_competence)">Add</button>
-          </div>
-          <div v-if="!user_competence.new">
-            <button @click="updateCompetenceStatus(user_competence)">Save</button>
-          </div>
+          <button :id="'btn' + resource.id" @click="copyToClipboard(resource.id)"
+            class="btn btn-outline-dark">Copy</button>
+        </div>
+        <div v-if="user_competence.new">
+          <button @click="addCompetenceStatus(user_competence)" class="btn btn-outline-success" style="width: 90%; margin: 1% 5% 1% 5%;">Save</button>
+        </div>
+        <div v-if="!user_competence.new">
+          <button @click="updateCompetenceStatus(user_competence)" class="btn btn-outline-dark" style="width: 90%; margin: 1% 5% 1% 5%;">Save</button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <p>{{user_competence}}</p>
 </template>
 
 <script>
@@ -74,8 +73,8 @@ export default {
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
-            error.message ||
-            error.toString()
+          error.message ||
+          error.toString()
         );
       }
     );
@@ -88,42 +87,46 @@ export default {
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
-            error.message ||
-            error.toString()
+          error.message ||
+          error.toString()
         );
       }
     );
   },
   methods: {
-    updateCompetenceStatus(userCompetence){
+    updateCompetenceStatus(userCompetence) {
       UserCompetenceService.updateStatus(userCompetence).then((response) => {
         if (response.status == 200) {
-            history.back();
-          }
+          history.back();
+        }
       });
     },
-    addCompetenceStatus(userCompetence){
+    addCompetenceStatus(userCompetence) {
       UserCompetenceService.addStatus(userCompetence).then((response) => {
         if (response.status == 200) {
-            history.back();
-          }
+          history.back();
+        }
       });
     },
-    setLocalUserCompetence(competence){
+    setLocalUserCompetence(competence) {
       var local = competence.user_competences;
-      if(local.length > 0){
+      if (local.length > 0) {
         for (let i = 0; i < local.length; i++) {
           const element = local[i];
-          if(element.userId == this.$store.state.auth.user.id){
+          if (element.userId == this.$store.state.auth.user.id) {
             this.user_competence = element;
           }
         }
-        if(this.user_competence.length == 0){
-          this.user_competence = {userId: this.$store.state.auth.user.id, competenceId: competence.id, status: {name: ""}, new: true};
+        if (this.user_competence.length == 0) {
+          this.user_competence = { userId: this.$store.state.auth.user.id, competenceId: competence.id, status: { name: "" }, new: true };
         }
-      }else{
-        this.user_competence = {userId: this.$store.state.auth.user.id, competenceId: competence.id, status: {name: ""}, new: true}
+      } else {
+        this.user_competence = { userId: this.$store.state.auth.user.id, competenceId: competence.id, status: { name: "" }, new: true }
       }
+    },
+    copyToClipboard(elementId) {
+      var element = document.getElementById(elementId);
+      navigator.clipboard.writeText(element.value);
     }
   },
 };
