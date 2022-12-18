@@ -8,6 +8,8 @@ const BoardAdmin = () => import("./components/BoardAdmin.vue");
 const EditCompetence = () => import("./components/EditCompetence.vue");
 const AddCompetence = () => import("./components/AddCompetence.vue");
 const Competence = () => import("./components/Competence.vue");
+const EditCategory = () => import("./components/EditCategory.vue");
+const AddCategory = () => import("./components/AddCategory.vue");
 
 const routes = [
   {
@@ -37,13 +39,13 @@ const routes = [
   },
   {
     path: "/competence/edit/:id",
-    name: "edit",
+    name: "editCompetence",
     // lazy-loaded
     component: EditCompetence,
   },
   {
     path: "/competence/add",
-    name: "add",
+    name: "addCompetence",
     // lazy-loaded
     component: AddCompetence,
   },
@@ -52,6 +54,18 @@ const routes = [
     name: "competence",
     // lazy-loaded
     component: Competence,
+  },
+  {
+    path: "/category/edit/:id",
+    name: "editCategory",
+    // lazy-loaded
+    component: EditCategory,
+  },
+  {
+    path: "/category/add",
+    name: "addCategory",
+    // lazy-loaded
+    component: AddCategory,
   },
 ];
 

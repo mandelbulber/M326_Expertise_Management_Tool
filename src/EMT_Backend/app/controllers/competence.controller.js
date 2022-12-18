@@ -107,7 +107,6 @@ exports.add = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  console.log(req.body)
   Competence.findByPk(req.body.id, {
     include: [
       {

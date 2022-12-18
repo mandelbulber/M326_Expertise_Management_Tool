@@ -2,7 +2,7 @@
   <header>
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <h1>Admin Board</h1>
-      <router-link :to="{ name: '' }" class="btn btn-outline-success">Create new category</router-link>
+      <router-link :to="{ name: 'addCategory' }" class="btn btn-outline-success">Create new category</router-link>
     </div>
   </header>
   <div v-for="category in categories" :key="category.id">
@@ -11,9 +11,10 @@
         <div style="align-items: center;">
           <h1 class="text-center">{{ category.name }}</h1>
           <div style="position: absolute; top: 3.25%; right: 1%; display: flex;">
-            <router-link :to="{ name: '' }" class="btn btn-outline-dark" style="margin-right: 0.5em">Edit
+            <router-link :to="{ name: 'editCategory', params: { id: category.id } }" class="btn btn-outline-dark" style="margin-right: 0.5em">Edit
               category</router-link>
-            <router-link :to="{ name: '' }" class="btn btn-outline-danger">Delete category</router-link>
+            <button @click="deleteCategory(category)" class="btn btn-outline-danger"
+                      style="width: 50%; margin: 1%;">Delete category</button>
           </div>
         </div>
         <hr />
@@ -33,7 +34,7 @@
                   <h5>{{ competence.name }}</h5>
                   <p>{{ competence.description }}</p>
                   <div style="display: flex;">
-                    <router-link :to="{ name: 'edit', params: { id: competence.id } }" class="btn btn-outline-dark"
+                    <router-link :to="{ name: 'editCompetence', params: { id: competence.id } }" class="btn btn-outline-dark"
                       style="width: 50%; margin: 1%;">Edit competence</router-link>
                     <button @click="deleteCompetence(competence)" class="btn btn-outline-danger"
                       style="width: 50%; margin: 1%;">Delete competence</button>
@@ -43,7 +44,7 @@
             </td>
           </tbody>
         </table>
-        <router-link :to="{ name: 'add' }" class="btn btn-outline-success" style="width: 90%; margin: 1% 5% 1% 5%;">
+        <router-link :to="{ name: 'addCompetence' }" class="btn btn-outline-success" style="width: 90%; margin: 1% 5% 1% 5%;">
           Add new competence</router-link>
       </div>
     </div>
@@ -156,6 +157,18 @@ export default {
           if (res.status == 200) {
             CompetenceService.getAll().then((response) => {
               this.competences = response.data;
+            });
+          }
+        });
+      }
+    },
+    deleteCategory(category) {
+      var result = confirm("Are you sure to delete the Competence with the name " + category.name + " and all its competences?");
+      if (result) {
+        CategoryService.deleteCategory(category.id).then((res) => {
+          if (res.status == 200) {
+            CategoryService.getAll().then((response) => {
+              this.categories = response.data;
             });
           }
         });

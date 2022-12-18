@@ -11,4 +11,12 @@ module.exports = function (app) {
   });
 
   app.get("/api/category", [authJwt.verifyToken], controller.getAll);
+
+  app.get("/api/category/byId", [authJwt.verifyToken, authJwt.isAdmin], controller.getById);
+
+  app.post("/api/category/edit", [authJwt.verifyToken, authJwt.isAdmin], controller.edit);
+
+  app.post("/api/category/add", [authJwt.verifyToken, authJwt.isAdmin], controller.add);
+
+  app.post("/api/category/delete", [authJwt.verifyToken, authJwt.isAdmin], controller.delete);
 };
