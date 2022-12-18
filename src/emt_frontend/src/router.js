@@ -7,6 +7,7 @@ const Profile = () => import("./components/Profile.vue");
 const BoardAdmin = () => import("./components/BoardAdmin.vue");
 const EditCompetence = () => import("./components/EditCompetence.vue");
 const AddCompetence = () => import("./components/AddCompetence.vue");
+const Competence = () => import("./components/Competence.vue");
 
 const routes = [
   {
@@ -45,6 +46,12 @@ const routes = [
     name: "add",
     // lazy-loaded
     component: AddCompetence,
+  },
+  {
+    path: "/competence/:id",
+    name: "competence",
+    // lazy-loaded
+    component: Competence,
   },
 ];
 

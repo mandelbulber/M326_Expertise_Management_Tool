@@ -40,6 +40,7 @@ require("./app/routes/difficulty.routes")(app);
 require("./app/routes/category.routes")(app);
 require("./app/routes/status.routes")(app);
 require("./app/routes/resource.routes")(app);
+require("./app/routes/user_competences.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

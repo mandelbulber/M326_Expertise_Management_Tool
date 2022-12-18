@@ -40,7 +40,7 @@
                     </div>
                   </div>
                   <p>{{ competence.description }}</p>
-                  <button type="button" class="btn btn-outline-dark">Go to competence</button>
+                  <router-link :to="{ name: 'competence', params: { id: competence.id } }" class="btn btn-outline-dark">Go to competence</router-link>
                 </div>
               </div>
             </td>
