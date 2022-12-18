@@ -76,13 +76,13 @@ function addTestData() {
   });
 
   Category.findOrCreate({
-    where: { id: 1, name: "TestCategory1" },
+    where: { id: 1, name: "SQL" },
   }).catch((err) => {
     console.log(err.message + " | " + err.name);
   });
 
   Category.findOrCreate({
-    where: { id: 2, name: "TestCategory2" },
+    where: { id: 2, name: "NodeJs" },
   }).catch((err) => {
     console.log(err.message + " | " + err.name);
   });
@@ -155,8 +155,8 @@ function addTestData() {
   Competence.findOrCreate({
     where: {
       id: 1,
-      name: "TestCompetence1",
-      description: "TestCompetence1Desc",
+      name: "Create a Database",
+      description: "Be able to create a database in mysql",
       categoryId: 1,
       difficultyId: 1,
     },
@@ -170,13 +170,73 @@ function addTestData() {
       console.log(err.message + " | " + err.name);
     });
 
+    Competence.findOrCreate({
+      where: {
+        id: 2,
+        name: "Create Table",
+        description: "Be able to create a table in mysql",
+        categoryId: 1,
+        difficultyId: 1,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+
+    Competence.findOrCreate({
+      where: {
+        id: 3,
+        name: "Add data to table",
+        description: "Be able to add data to a table in mysql",
+        categoryId: 1,
+        difficultyId: 1,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+
+    Competence.findOrCreate({
+      where: {
+        id: 4,
+        name: "Select data from database",
+        description: "Be able to select data from database in mysql",
+        categoryId: 1,
+        difficultyId: 2,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+
+    Competence.findOrCreate({
+      where: {
+        id: 5,
+        name: "Edit existing date on database",
+        description: "Be able to edit existing date on database in mysql",
+        categoryId: 1,
+        difficultyId: 2,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+
+    Competence.findOrCreate({
+      where: {
+        id: 6,
+        name: "Use Joins in Select",
+        description: "Be able to use joins in a select query in mysql",
+        categoryId: 1,
+        difficultyId: 3,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+
   Competence.findOrCreate({
     where: {
-      id: 2,
-      name: "TestCompetence2",
-      description: "TestCompetence2Desc",
+      id: 7,
+      name: "Create a NodeJs app",
+      description: "Be able to initialize a nodejs app",
       categoryId: 2,
-      difficultyId: 2,
+      difficultyId: 1,
     },
   })
     .then((competence) => {
@@ -188,10 +248,67 @@ function addTestData() {
       console.log(err.message + " | " + err.name);
     });
 
+    Competence.findOrCreate({
+      where: {
+        id: 8,
+        name: "NodeJs Stuff 2",
+        description: "NodeJs Stuff 2",
+        categoryId: 2,
+        difficultyId: 1,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+
+    Competence.findOrCreate({
+      where: {
+        id: 9,
+        name: "NodeJs Stuff 3",
+        description: "NodeJs Stuff 3",
+        categoryId: 2,
+        difficultyId: 2,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+    Competence.findOrCreate({
+      where: {
+        id: 10,
+        name: "NodeJs Stuff 4",
+        description: "NodeJs Stuff 4",
+        categoryId: 2,
+        difficultyId: 3,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+    Competence.findOrCreate({
+      where: {
+        id: 11,
+        name: "NodeJs Stuff 5",
+        description: "NodeJs Stuff 5",
+        categoryId: 2,
+        difficultyId: 3,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+    Competence.findOrCreate({
+      where: {
+        id: 12,
+        name: "NodeJs Stuff 6",
+        description: "NodeJs Stuff 6",
+        categoryId: 2,
+        difficultyId: 3,
+      },
+    }).catch((err) => {
+      console.log(err.message + " | " + err.name);
+    });
+
   Resource.findOrCreate({
     where: {
       id: 1,
-      url: "https://someResource1.com/",
+      url: "https://www.w3schools.com/sql/sql_syntax.asp",
       competenceId: 1,
     },
   }).catch((err) => {
@@ -201,8 +318,8 @@ function addTestData() {
   Resource.findOrCreate({
     where: {
       id: 2,
-      url: "https://someResource2.com/",
-      competenceId: 1,
+      url: "https://www.w3schools.com/nodejs/",
+      competenceId: 7,
     },
   }).catch((err) => {
     console.log(err.message + " | " + err.name);
