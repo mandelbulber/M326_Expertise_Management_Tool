@@ -16,6 +16,12 @@ const sequelize = new Sequelize(
       acquire: config.pool.acquire,
       idle: config.pool.idle
     },
+    retry: {
+      match: [/Deadlock/i],
+      max: 3, 
+      backoffBase: 1000, 
+      backoffExponent: 1.5, 
+    },
     logging: false
   }
 );
