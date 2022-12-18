@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import UserService from "@/services/user.service";
 import CompetenceService from "@/services/competence.service";
 import DifficultyService from "@/services/difficulty.service";
 import CategoryService from "@/services/category.service";
@@ -67,57 +66,52 @@ export default {
     };
   },
   mounted() {
-    UserService.getHomeContent().then(
-      (response) => {
-      },
-      (error) => {
-        if (error.response.status == 403) {
-          this.$router.push("/login");
+    if (!this.$store.state.auth.user) {
+      this.$router.push("/login");
+    } else {
+      CompetenceService.getAll().then(
+        (response) => {
+          this.competences = response.data;
+        },
+        (error) => {
+          console.log(
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+          );
         }
-      }
-    );
-    CompetenceService.getAll().then(
-      (response) => {
-        this.competences = response.data;
-      },
-      (error) => {
-        console.log(
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString()
-        );
-      }
-    );
-    DifficultyService.getAll().then(
-      (response) => {
-        this.difficulties = response.data;
-      },
-      (error) => {
-        console.log(
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString()
-        );
-      }
-    );
-    CategoryService.getAll().then(
-      (response) => {
-        this.categories = response.data;
-      },
-      (error) => {
-        console.log(
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString()
-        );
-      }
-    );
+      );
+      DifficultyService.getAll().then(
+        (response) => {
+          this.difficulties = response.data;
+        },
+        (error) => {
+          console.log(
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+          );
+        }
+      );
+      CategoryService.getAll().then(
+        (response) => {
+          this.categories = response.data;
+        },
+        (error) => {
+          console.log(
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+          );
+        }
+      );
+    }
   },
 };
 </script>

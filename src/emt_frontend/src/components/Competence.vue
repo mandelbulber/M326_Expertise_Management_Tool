@@ -40,6 +40,8 @@
           </div>
     </div>
   </div>
+
+  <p>{{user_competence}}</p>
 </template>
 
 <script>
@@ -53,7 +55,7 @@ export default {
   components: {
     vSelect,
   },
-  name: "EditCompetence",
+  name: "Competence",
   data() {
     return {
       user_competence: [],
@@ -115,6 +117,9 @@ export default {
           if(element.userId == this.$store.state.auth.user.id){
             this.user_competence = element;
           }
+        }
+        if(this.user_competence.length == 0){
+          this.user_competence = {userId: this.$store.state.auth.user.id, competenceId: competence.id, status: {name: ""}, new: true};
         }
       }else{
         this.user_competence = {userId: this.$store.state.auth.user.id, competenceId: competence.id, status: {name: ""}, new: true}

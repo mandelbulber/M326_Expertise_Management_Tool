@@ -16,7 +16,7 @@ class CompetenceService {
   }
 
   getCompetenceById(competenceId) {
-    return axios.get(API_URL + "edit", {
+    return axios.get(API_URL + "byId", {
       headers: authHeader(),
       params: { id: competenceId },
     });

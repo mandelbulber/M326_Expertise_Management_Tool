@@ -14,7 +14,7 @@ module.exports = function (app) {
 
   app.get("/api/competence/user", [authJwt.verifyToken], controller.getAllByUserId);
 
-  app.get("/api/competence/edit", [authJwt.verifyToken, authJwt.isAdmin], controller.getById);
+  app.get("/api/competence/byId", [authJwt.verifyToken], controller.getById);
 
   app.post("/api/competence/edit", [authJwt.verifyToken, authJwt.isAdmin], controller.edit);
 
