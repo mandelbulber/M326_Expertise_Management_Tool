@@ -58,10 +58,8 @@ exports.delete = (req, res) => {
           competence.destroy();
         });
       }
-      return category;
-    }).then((category)=> {
-      category.destroy();
-    }).then((response) => {
-      return res.send(response).status(200);
+      category.destroy().then((response) => {
+        return res.send(response).status(200);
+      });
     });
 };
