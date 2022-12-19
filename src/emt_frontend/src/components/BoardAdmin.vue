@@ -44,7 +44,7 @@
             </td>
           </tbody>
         </table>
-        <router-link :to="{ name: 'addCompetence' }" class="btn btn-outline-success"
+        <router-link :to="{ name: 'addCompetence', params: { id: category.id } }" class="btn btn-outline-success"
           style="width: 90%; margin: 1% 5% 1% 5%;">
           Add new competence</router-link>
       </div>

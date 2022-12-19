@@ -44,7 +44,7 @@ const routes = [
     component: EditCompetence,
   },
   {
-    path: "/competence/add",
+    path: "/competence/add/:id",
     name: "addCompetence",
     // lazy-loaded
     component: AddCompetence,
