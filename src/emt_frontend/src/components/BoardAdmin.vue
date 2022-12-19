@@ -8,13 +8,13 @@
   <div v-for="category in categories" :key="category.id">
     <div class="card" style="width: 20vw; margin-top: 2vh; margin-bottom: 2vh; width: auto;"> <!-- category card -->
       <div class="card-body">
-        <div style="align-items: center;">
+        <div style="display: flex; justify-content: space-between;">
+          <div style="width: 20vw;"></div>
           <h1 class="text-center">{{ category.name }}</h1>
-          <div style="position: absolute; top: 3.25%; right: 1%; display: flex;">
-            <router-link :to="{ name: 'editCategory', params: { id: category.id } }" class="btn btn-outline-dark" style="margin-right: 0.5em">Edit
-              category</router-link>
-            <button @click="deleteCategory(category)" class="btn btn-outline-danger"
-                      style="width: 50%; margin: 1%;">Delete category</button>
+          <div style="display: flex; width: 20vw; justify-content: flex-end;">
+            <router-link :to="{ name: 'editCategory', params: { id: category.id } }" class="btn btn-outline-dark" style="margin: 5px; ">Edit category</router-link>
+            <button @click="deleteCategory(category)" class="btn btn-outline-danger" style="margin: 5px;">
+              Delete category</button>
           </div>
         </div>
         <hr />
@@ -34,8 +34,8 @@
                   <h5>{{ competence.name }}</h5>
                   <p>{{ competence.description }}</p>
                   <div style="display: flex;">
-                    <router-link :to="{ name: 'editCompetence', params: { id: competence.id } }" class="btn btn-outline-dark"
-                      style="width: 50%; margin: 1%;">Edit competence</router-link>
+                    <router-link :to="{ name: 'editCompetence', params: { id: competence.id } }"
+                      class="btn btn-outline-dark" style="width: 50%; margin: 1%;">Edit competence</router-link>
                     <button @click="deleteCompetence(competence)" class="btn btn-outline-danger"
                       style="width: 50%; margin: 1%;">Delete competence</button>
                   </div>
@@ -44,7 +44,8 @@
             </td>
           </tbody>
         </table>
-        <router-link :to="{ name: 'addCompetence' }" class="btn btn-outline-success" style="width: 90%; margin: 1% 5% 1% 5%;">
+        <router-link :to="{ name: 'addCompetence' }" class="btn btn-outline-success"
+          style="width: 90%; margin: 1% 5% 1% 5%;">
           Add new competence</router-link>
       </div>
     </div>
