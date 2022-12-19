@@ -18,14 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 // database
 const db = require("./app/models");
 
-db.sequelize.sync({ alter: true }).then(() => {
-  addTestData();
+db.sequelize.sync({ alter: true }).then((response) => {
+  db.user.findByPk(1).then((result) => {
+      if(result == null){ // Only run addTestData if not already run
+        addTestData();
+      }
+    });
 });
-// force: true will drop the table if it already exists
-//db.sequelize.sync({force: true}).then(() => {
-//  console.log('Drop and Resync Database with { force: true }');
-//  initial();
-//});
 
 // simple route
 app.get("/", (req, res) => {
