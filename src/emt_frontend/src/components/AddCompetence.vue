@@ -64,11 +64,11 @@ export default {
     CategoryService.getAll().then(
       (response) => {
         this.categories = response.data;
-        this.categories.forEach(category => {
-          if (category.id = this.$route.params.id) {
-            this.competence.category = category;
+        response.data.forEach(category => {
+          if(category.id == this.$route.params.id){
+            this.competence.category = category
           }
-        })
+        });
       },
       (error) => {
         console.log(

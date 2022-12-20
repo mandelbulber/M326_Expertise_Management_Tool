@@ -15,6 +15,9 @@ exports.updateStatus = (req, res) => {
 };
 
 exports.addStatus = (req, res) => {
+  if(req.body.status.id == null){
+    return res.send("No Changes were made.").status(200);
+  }
   User_Competences.create({userId: req.body.userId, statusId: req.body.status.id,competenceId: req.body.competenceId}).then(() => {
     return res.send("Status Added!").status(200);
   })
