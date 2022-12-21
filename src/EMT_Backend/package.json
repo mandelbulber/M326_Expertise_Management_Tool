@@ -1,0 +1,27 @@
+{
+  "name": "emt_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": ".\\node_modules\\.bin\\mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
+    "nodemon": "^2.0.20",
+    "sequelize": "^5.21.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "sequelize-test-helpers": "^1.4.3",
+    "sinon": "^15.0.1"
+  }
+}
